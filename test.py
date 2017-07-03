@@ -1,3 +1,6 @@
+"""unittest
+"""
+
 import unittest
 import functional as F
 
@@ -7,6 +10,9 @@ _str = "seokjoon.yun"
 _dict = { "id": 1, "name": "seokjoon.yun" }
 _dict_values = [1, "seokjoon.yun"]
 _dict_keys = ["id", "name"]
+
+def add(a,b,c): return a+b+c
+def sub(a,b,c): return a-b-c
 
 class Class1:
     def __init__(self):
@@ -67,7 +73,23 @@ class UnitTest(unittest.TestCase):
 
         _l = []
         F.each(_dict, lambda x: _l.append(x))
-        self.assertEqual(_dict_values,_l)   
+        self.assertEqual(_dict_values,_l)
+
+    def test_curry(self):
+        a1 = F.curry(add)(1)
+        self.assertEqual(a1(2,3),6)
+        a2 = F.curry(a1)(3)
+        self.assertEqual(a2(4), 8)
+        a3 = F.curry(add)(1,1)
+        self.assertEqual(a3(1),3)
+
+    def test_curryr(self):
+        s1 = F.curryr(sub)(1)
+        self.assertEqual(s1(3,2),0)
+        s2 = F.curryr(s1)(3)
+        self.assertEqual(s2(4), 0)
+        s3 = F.curryr(sub)(1,1)
+        self.assertEqual(s3(3),1)
     
         
 if __name__ == "__main__":

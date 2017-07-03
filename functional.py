@@ -53,3 +53,28 @@ def each(seq, func):
         for i in seq.values():
             func(i)
 
+def curry(func):
+    """Currying function from left
+
+    args:
+        func: function
+    return: currying function
+    """
+    def func_a(*a):
+        def func_b(*b):
+            return func(*(a+b))
+        return func_b
+    return func_a
+
+def curryr(func):
+    """Currying function from right
+
+    args:
+        func: function
+    return: currying function
+    """
+    def func_a(*a):
+        def func_b(*b):
+            return func(*(b+a))
+        return func_b
+    return func_a
