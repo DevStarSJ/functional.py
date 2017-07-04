@@ -90,6 +90,19 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(s2(4), 0)
         s3 = F.curryr(sub)(1,1)
         self.assertEqual(s3(3),1)
+
+    def test_map(self):
+        self.assertEqual(F.map(_list, lambda x: x*x),[1,4,9,16])
+        self.assertEqual(F.map(_tuple, lambda x: x*x),[1,4,9])
+
+    def test_filter(self):
+        self.assertEqual(F.filter(_list,lambda x:x % 2 ==0), [2,4])
+
+    def test_reject(self):
+        self.assertEqual(F.reject(_list,lambda x:x % 2 ==0), [1,3])
+
+    def test_reduce(self):
+        self.assertEqual(F.reduce(_list, lambda x,y:x+y,0),10)
     
         
 if __name__ == "__main__":

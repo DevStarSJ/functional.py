@@ -47,11 +47,9 @@ def each(seq, func):
     if (is_false(seq)): return
 
     if is_sequence(seq):
-        for i in seq:
-            func(i)
+        [func(x) for x in seq]
     elif is_dict(seq):
-        for i in seq.values():
-            func(i)
+        [func(x) for x in seq.values()]
 
 def curry(func):
     """Currying function from left
@@ -78,3 +76,31 @@ def curryr(func):
             return func(*(b+a))
         return func_b
     return func_a
+
+def map(obj, func):
+    if not is_sequence(obj): return []
+    _iter = obj
+    if is_dict(obj): _iter = obj.values()
+
+    return [func(x) for x in _iter]
+
+def filter(obj, pred):
+    if not is_sequence(obj): return []
+    _iter = obj
+    if is_dict(obj): _iter = obj.values()
+
+    return [x for x in _iter if pred(x)]
+
+def reject(obj, pred):
+    return filter(obj, lambda x: not pred(x))
+
+def reduce(obj, func, start):
+    if not is_sequence(obj): return None
+    acc = start
+
+    def reducer(x):
+        nonlocal acc
+        acc = func(acc,x)
+
+    each(obj, reducer)
+    return acc
