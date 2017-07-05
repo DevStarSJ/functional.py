@@ -80,8 +80,22 @@ def pipe(*args):
         return reduce(list(args), lambda acc, func: func(acc), arg)
     return runner;
 
+
 def go(*args):
     start = args[0]
     rest = args[1:]
     return pipe(*rest)(start)
+
+
+def has_key(obj, key):
+    if not is_dict(obj): return False
+    return True if key in obj.keys() else False
+
+
+def get(obj, key):
+    if not is_dict(obj): return None
+    return obj[key] if has_key(obj, key) else None
+
+
+
 
