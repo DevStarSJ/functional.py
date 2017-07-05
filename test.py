@@ -11,14 +11,19 @@ _dict = { "id": 1, "name": "seokjoon.yun" }
 _dict_values = [1, "seokjoon.yun"]
 _dict_keys = ["id", "name"]
 
+
 def add(a,b,c): return a+b+c
+
+
 def sub(a,b,c): return a-b-c
+
 
 class Class1:
     def __init__(self):
         pass
 
 _class = Class1()
+
 
 class UnitTest(unittest.TestCase):
     def test_is_false(self):
@@ -71,9 +76,9 @@ class UnitTest(unittest.TestCase):
         F.each(_str, lambda x: _l.append(x))
         self.assertEqual(list(_str),_l)
 
-        _l = []
-        F.each(_dict, lambda x: _l.append(x))
-        self.assertEqual(_dict_values,_l)
+        # _l = []
+        # F.each(_dict, lambda x: _l.append(x))
+        # self.assertEqual(_dict_values,_l)
 
     def test_curry(self):
         a1 = F.curry(add)(1)
@@ -103,6 +108,10 @@ class UnitTest(unittest.TestCase):
 
     def test_reduce(self):
         self.assertEqual(F.reduce(_list, lambda x,y:x+y,0),10)
+
+    def test_pipe(self):
+        func_pipe = F.pipe(F.curryr(F.map)(lambda x: x+1),F.curryr(F.map)(lambda x: x*2))
+        self.assertEqual(func_pipe(_list), [4,6,8,10])
     
         
 if __name__ == "__main__":

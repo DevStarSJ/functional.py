@@ -1,6 +1,7 @@
 """functional utilities
 """
 
+
 def is_false(arg):
     """Check arg is False.
     It can also be used to return the not value of arg.
@@ -10,6 +11,7 @@ def is_false(arg):
     """
     return not arg
 
+
 def is_true(arg):
     """Check arg is True.
 
@@ -17,6 +19,7 @@ def is_true(arg):
     return: True of False
     """
     return not is_false(arg)
+
 
 def is_sequence(arg):
     """Check arg is sequence (list, tuple, string)
@@ -27,6 +30,7 @@ def is_sequence(arg):
     t = type(arg)
     return t is list or t is tuple or t is str
 
+
 def is_dict(arg):
     """Check arg is dict
 
@@ -35,6 +39,7 @@ def is_dict(arg):
     """
     t = type(arg)
     return t is dict
+
 
 def each(seq, func):
     """Run func for all value of seq
@@ -51,6 +56,7 @@ def each(seq, func):
     elif is_dict(seq):
         [func(x) for x in seq.values()]
 
+
 def curry(func):
     """Currying function from left
 
@@ -63,6 +69,7 @@ def curry(func):
             return func(*(a+b))
         return func_b
     return func_a
+
 
 def curryr(func):
     """Currying function from right
@@ -77,12 +84,14 @@ def curryr(func):
         return func_b
     return func_a
 
+
 def map(obj, func):
     if not is_sequence(obj): return []
     _iter = obj
     if is_dict(obj): _iter = obj.values()
 
     return [func(x) for x in _iter]
+
 
 def filter(obj, pred):
     if not is_sequence(obj): return []
@@ -91,8 +100,10 @@ def filter(obj, pred):
 
     return [x for x in _iter if pred(x)]
 
+
 def reject(obj, pred):
     return filter(obj, lambda x: not pred(x))
+
 
 def reduce(obj, func, start):
     if not is_sequence(obj): return None
@@ -100,7 +111,13 @@ def reduce(obj, func, start):
 
     def reducer(x):
         nonlocal acc
-        acc = func(acc,x)
+        acc = func(acc, x)
 
     each(obj, reducer)
     return acc
+
+
+def pipe(*args):
+    def runner(arg):
+        return reduce(list(args), lambda acc, func: func(acc), arg)
+    return runner;
