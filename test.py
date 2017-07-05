@@ -111,7 +111,11 @@ class UnitTest(unittest.TestCase):
 
     def test_pipe(self):
         func_pipe = F.pipe(F.curryr(F.map)(lambda x: x+1),F.curryr(F.map)(lambda x: x*2))
-        self.assertEqual(func_pipe(_list), [4,6,8,10])
+        self.assertEqual(func_pipe(_list), [4, 6, 8, 10])
+
+    def test_go(self):
+        result = F.go(_list,F.curryr(F.map)(lambda x: x + 1), F.curryr(F.map)(lambda x: x * 2))
+        self.assertEqual(result, [4, 6, 8, 10])
     
         
 if __name__ == "__main__":

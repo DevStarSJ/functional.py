@@ -121,3 +121,9 @@ def pipe(*args):
     def runner(arg):
         return reduce(list(args), lambda acc, func: func(acc), arg)
     return runner;
+
+def go(*args):
+    start = args[0]
+    rest = args[1:]
+    return pipe(*rest)(start)
+
