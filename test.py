@@ -3,6 +3,7 @@
 
 import unittest
 import functional as F
+import linear as L
 
 _list = [1,2,3,4]
 _tuple = (1,2,3)
@@ -10,6 +11,7 @@ _str = "seokjoon.yun"
 _dict = { "id": 1, "name": "seokjoon.yun" }
 _dict_values = [1, "seokjoon.yun"]
 _dict_keys = ["id", "name"]
+_matrix = [[1,2],[3,4]]
 
 
 def add(a,b,c): return a+b+c
@@ -116,7 +118,19 @@ class UnitTest(unittest.TestCase):
     def test_go(self):
         result = F.go(_list,F.curryr(F.map)(lambda x: x + 1), F.curryr(F.map)(lambda x: x * 2))
         self.assertEqual(result, [4, 6, 8, 10])
-    
+
+    def test_linear_shape(self):
+        self.assertEqual(L.shape(_list), None)
+        self.assertEquals(L.shape(_matrix), [2,2])
+
+    def test_functional_all(self):
+        self.assertEqual(F.all(_list, lambda x: x < 5), True)
+        self.assertEqual(F.all(_list, lambda x: x < 2), False)
+
+    def test_functional_any(self):
+        self.assertEqual(F.any(_list, lambda x: x < 5), True)
+        self.assertEqual(F.any(_list, lambda x: x < 2), True)
+        self.assertEqual(F.any(_list, lambda x: x > 5), False)
         
 if __name__ == "__main__":
     unittest.main()
