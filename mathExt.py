@@ -58,3 +58,13 @@ def sum(arg):
 # 삼각수 : 1 ~ n까지의 자연수 합 : 삼각형을 만들기 위해 사용된 물건의 총 수
 def triangular_number(n):
     return n * (n + 1) // 2
+
+# 콜라츠 추측 : 입력된 수가 몇번의 과정을 거쳐 1로 되는
+def collatz_conjecture(n):
+    acc = n
+    count = 0
+
+    while acc > 1:
+        acc = acc // 2 if acc % 2 == 0 else 3 * acc + 1
+        count += 1
+    return count

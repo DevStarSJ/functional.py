@@ -144,5 +144,8 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(M.triangular_number(10), 55)
         self.assertEqual(M.triangular_number(1), 1)
 
+    def test_mathExt_collatz_conjecture(self):
+        self.assertEqual(M.collatz_conjecture(13), 9)
+
 if __name__ == "__main__":
     unittest.main()
