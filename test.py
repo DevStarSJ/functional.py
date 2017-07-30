@@ -3,7 +3,7 @@
 
 import unittest
 import functional as F
-import linear as L
+import mathExt as M
 
 _list = [1,2,3,4]
 _tuple = (1,2,3)
@@ -119,9 +119,9 @@ class UnitTest(unittest.TestCase):
         result = F.go(_list,F.curryr(F.map)(lambda x: x + 1), F.curryr(F.map)(lambda x: x * 2))
         self.assertEqual(result, [4, 6, 8, 10])
 
-    def test_linear_shape(self):
-        self.assertEqual(L.shape(_list), None)
-        self.assertEquals(L.shape(_matrix), [2,2])
+    def test_mathExt_shape(self):
+        self.assertEqual(M.shape(_list), None)
+        self.assertEquals(M.shape(_matrix), [2, 2])
 
     def test_functional_all(self):
         self.assertEqual(F.all(_list, lambda x: x < 5), True)
@@ -131,6 +131,10 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(F.any(_list, lambda x: x < 5), True)
         self.assertEqual(F.any(_list, lambda x: x < 2), True)
         self.assertEqual(F.any(_list, lambda x: x > 5), False)
+
+    def test_mathExt_divisors(self):
+        self.assertEqual(M.divisors(28), [1, 2, 4, 7, 14, 28])
+        self.assertEquals(M.divisors(21), [1, 3, 7, 21])
         
 if __name__ == "__main__":
     unittest.main()

@@ -39,3 +39,13 @@ def argmax(M):
             max_num, max_index = v, i
     return max_index
 
+def divisors(origin):
+    factors = [1, origin]
+
+    current, other_side = 2, origin
+    while current < other_side:
+        if origin % current == 0:
+            other_side = origin // current
+            factors += [current, other_side]
+        current += 1
+    return sorted(factors)
