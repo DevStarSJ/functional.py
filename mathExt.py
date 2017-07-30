@@ -39,6 +39,7 @@ def argmax(M):
             max_num, max_index = v, i
     return max_index
 
+# 약수
 def divisors(origin):
     factors = [1, origin]
 
@@ -53,3 +54,7 @@ def divisors(origin):
 def sum(arg):
     if not F.is_sequence(arg): return None
     return F.reduce(arg, lambda a, b: a+b, 0)
+
+# 삼각수 : 1 ~ n까지의 자연수 합 : 삼각형을 만들기 위해 사용된 물건의 총 수
+def triangular_number(n):
+    return n * (n + 1) // 2

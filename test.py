@@ -140,5 +140,9 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(M.sum(_list), 10)
         self.assertEqual(M.sum(_tuple), 6)
 
+    def test_mathExt_triangular_number(self):
+        self.assertEqual(M.triangular_number(10), 55)
+        self.assertEqual(M.triangular_number(1), 1)
+
 if __name__ == "__main__":
     unittest.main()
