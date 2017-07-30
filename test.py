@@ -135,6 +135,10 @@ class UnitTest(unittest.TestCase):
     def test_mathExt_divisors(self):
         self.assertEqual(M.divisors(28), [1, 2, 4, 7, 14, 28])
         self.assertEquals(M.divisors(21), [1, 3, 7, 21])
-        
+
+    def test_mathExt_sum(self):
+        self.assertEqual(M.sum(_list), 10)
+        self.assertEqual(M.sum(_tuple), 6)
+
 if __name__ == "__main__":
     unittest.main()

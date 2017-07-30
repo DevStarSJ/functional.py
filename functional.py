@@ -110,10 +110,6 @@ def any(arg, pred):
             return True
     return False
 
-def sum(arg):
-    if not is_sequence(arg): return None
-    return reduce(arg,lambda a,b: a+b,0)
-
 
 
 

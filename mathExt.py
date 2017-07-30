@@ -49,3 +49,7 @@ def divisors(origin):
             factors += [current, other_side]
         current += 1
     return sorted(factors)
+
+def sum(arg):
+    if not F.is_sequence(arg): return None
+    return F.reduce(arg, lambda a, b: a+b, 0)
