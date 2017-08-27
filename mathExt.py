@@ -49,7 +49,7 @@ def divisors(origin):
             other_side = origin // current
             factors += [current, other_side]
         current += 1
-    return sorted(factors)
+    return sorted(list(set(factors)))
 
 def sum(arg):
     if not F.is_sequence(arg): return None
@@ -68,3 +68,27 @@ def collatz_conjecture(n):
         acc = acc // 2 if acc % 2 == 0 else 3 * acc + 1
         count += 1
     return count
+
+def factorial(n):
+    if n == 2:
+        return 2
+    return n * factorial(n-1)
+
+# 친화수 : d = '약수 중 자기자신을 뺀 수' 라고 했을때 d(a) = b , d(b) = a 임을 만족하는 쌍
+def is_amicable(a):
+    b = sum(divisors(a)) - a
+    if a == b:
+        return False
+    c = sum(divisors(b)) - b
+    return a == c
+
+# 완전수 : 진약수의 합이 자기자신과 같은 수
+def is_complete(a):
+    b = sum(divisors(a)) - a
+    return a == b
+
+# 초과수: 진약수의 합이 자신보다 큰 수
+def is_abundant_number(a):
+    b = sum(divisors(a)) - a
+    return a < b
+
