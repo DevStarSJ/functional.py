@@ -1,4 +1,5 @@
 import math
+from itertools import chain, combinations
 
 import functional as F
 
@@ -91,4 +92,34 @@ def is_complete(a):
 def is_abundant_number(a):
     b = sum(divisors(a)) - a
     return a < b
+
+def is_prime(num):
+    if num == 2 or num == 3: return True
+    if num % 2 == 0 or num % 3 == 0: return False
+
+    for i in range(3,int(math.sqrt(num))+1,2):
+        if num % i == 0: return False
+    return True
+
+# 모든 요소를 1번씩 사용하면서 가능한 모든 조합들
+def combination(iterable):
+    if len(iterable) == 1:
+        return [iterable]
+
+    result = []
+    for a in iterable:
+        subs = [b for b in iterable if b != a]
+        for b in combination(subs):
+            result.append([a] + b)
+
+    return result
+
+# 입력된 집합으로 생성가능한 모든 부분집합들
+def powerset(iterable):
+    xs = list(iterable)
+    return list(chain.from_iterable(combinations(xs,n) for n in range(len(xs)+1)))
+
+# 부분집합 중 주어진 갯수에 해당되는 것들
+def powerset_check_length(iterable, min_num, max_num):
+    return [list(x) for x in powerset(iterable) if min_num <= len(x) <= max_num]
 
