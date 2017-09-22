@@ -71,9 +71,9 @@ def collatz_conjecture(n):
     return count
 
 def factorial(n):
-    if n == 2:
-        return 2
-    return n * factorial(n-1)
+    return 0 if n < 2 else \
+           2 if n == 2 else \
+           n * factorial(n-1)
 
 # 친화수 : d = '약수 중 자기자신을 뺀 수' 라고 했을때 d(a) = b , d(b) = a 임을 만족하는 쌍
 def is_amicable(a):
