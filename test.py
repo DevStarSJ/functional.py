@@ -4,6 +4,7 @@
 import unittest
 import functional as F
 import mathExt as M
+import linearAlgebra as L
 
 _list = [1,2,3,4]
 _tuple = (1,2,3)
@@ -119,9 +120,9 @@ class UnitTest(unittest.TestCase):
         result = F.go(_list,F.curryr(F.map)(lambda x: x + 1), F.curryr(F.map)(lambda x: x * 2))
         self.assertEqual(result, [4, 6, 8, 10])
 
-    def test_mathExt_shape(self):
-        self.assertEqual(M.shape(_list), None)
-        self.assertEquals(M.shape(_matrix), [2, 2])
+    def test_linearAlgebra_shape(self):
+        self.assertEqual(L.shape(_list), [4])
+        self.assertEqual(L.shape(_matrix), [2, 2])
 
     def test_functional_all(self):
         self.assertEqual(F.all(_list, lambda x: x < 5), True)
@@ -134,7 +135,7 @@ class UnitTest(unittest.TestCase):
 
     def test_mathExt_divisors(self):
         self.assertEqual(M.divisors(28), [1, 2, 4, 7, 14, 28])
-        self.assertEquals(M.divisors(21), [1, 3, 7, 21])
+        self.assertEqual(M.divisors(21), [1, 3, 7, 21])
 
     def test_mathExt_sum(self):
         self.assertEqual(M.sum(_list), 10)
@@ -146,6 +147,20 @@ class UnitTest(unittest.TestCase):
 
     def test_mathExt_collatz_conjecture(self):
         self.assertEqual(M.collatz_conjecture(13), 9)
+
+    def test_linearAlgebra_mat_add(self):
+        A = [1, 2, 3]
+        B = [[1,2],[3,4]]
+        self.assertEqual(L.mat_add(A,B), None)
+        C = [3, 2, 1]
+        self.assertEqual(L.mat_add(A,C),[4,4,4])
+        self.assertEqual(L.mat_add(B,B),[[2,4],[6,8]])
+
+    def test_linearAlgebra_sca_mul(self):
+        A = [1, 2, 3]
+        B = [[1,2],[3,4]]
+        self.assertEqual(L.sca_mul(2, A), [2,4,6])
+        self.assertEqual(L.sca_mul(3, B),[[3,6],[9,12]])
 
 if __name__ == "__main__":
     unittest.main()
