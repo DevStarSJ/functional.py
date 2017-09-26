@@ -1,6 +1,7 @@
 import functional as F
 import math
 import copy
+from sympy import Symbol, pprint, solve
 
 def shape(matrix):
     if not F.is_sequence(matrix): return None
@@ -36,6 +37,34 @@ def mat_add(X, Y):
 def sca_mul(a, X):
     shape_X = shape(X)
 
-    return [a*x for x in X] if len(shape_X) == 1 \
+    return [a * x for x in X] if len(shape_X) == 1 \
         else [sca_mul(a, x) for x in X]
+
+def linear_combination(V, basis):
+    len_V = shape(V)[0]
+    shape_basis = shape(basis)
+
+    if F.any(shape_basis, lambda b: b != len_V):
+        error_message = "Length of V and basis must be same.";
+        #raise ValueError(error_message)
+        return None
+
+    S = [Symbol('S{}'.format(i)) for i in range(len_V)]
+    print(len(S))
+    expr = [F.reduce([S[j] * basis[i][j] for j in range(len_V)], lambda x,y: x+y, -V[i]) for i in range(len_V)]
+    s = solve(expr, dict=True)[0]
+    return [s[S[i]] for i in range(len_V)]
+
+if __name__ == '__main__':
+    print(linear_combination([1,2,3],[[1,0,0],[0,1,0],[0,0,1]]))
+
+
+
+
+
+
+
+
+
+
 
