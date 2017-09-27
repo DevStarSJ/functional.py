@@ -40,6 +40,7 @@ def sca_mul(a, X):
     return [a * x for x in X] if len(shape_X) == 1 \
         else [sca_mul(a, x) for x in X]
 
+
 def linear_combination(V, basis):
     len_V = shape(V)[0]
     shape_basis = shape(basis)
@@ -50,13 +51,28 @@ def linear_combination(V, basis):
         return None
 
     S = [Symbol('S{}'.format(i)) for i in range(len_V)]
-    print(len(S))
     expr = [F.reduce([S[j] * basis[i][j] for j in range(len_V)], lambda x,y: x+y, -V[i]) for i in range(len_V)]
-    s = solve(expr, dict=True)[0]
+    solution = solve(expr, dict=True)
+
+    if len(solution) == 0:
+        error_message = "There is linear independent basis.";
+        #raise ValueError(error_message)
+        return []
+
+    s = solution[0]
     return [s[S[i]] for i in range(len_V)]
 
+
+def is_linear_independent(basis):
+    shape_basis = shape(basis)
+    V = F.reduce(basis, lambda a,b: mat_add(a,b), [0 for _ in range(0,shape_basis[0])])
+
+    return len(linear_combination(V,basis)) > 0
+
+
 if __name__ == '__main__':
-    print(linear_combination([1,2,3],[[1,0,0],[0,1,0],[0,0,1]]))
+    pass
+
 
 
 

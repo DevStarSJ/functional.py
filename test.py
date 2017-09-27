@@ -162,5 +162,12 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(L.sca_mul(2, A), [2,4,6])
         self.assertEqual(L.sca_mul(3, B),[[3,6],[9,12]])
 
+    def test_linearAlgebra_linear_combination(self):
+        self.assertEqual(L.linear_combination([1,2,3],[[1,0,0],[0,1,0],[0,0,1]]), [1,2,3])
+
+    def test_linearAlgebra_is_linear_independent(self):
+        self.assertEqual(L.is_linear_independent([[1,0,0],[0,1,0],[2,1,0]]), False)
+        self.assertEqual(L.is_linear_independent([[1,0,0],[0,1,0],[2,1,3]]), True)
+
 if __name__ == "__main__":
     unittest.main()
