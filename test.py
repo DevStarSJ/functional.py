@@ -14,6 +14,7 @@ _dict_values = [1, "seokjoon.yun"]
 _dict_keys = ["id", "name"]
 matrix_2x2 = [[1, 2], [3, 4]]
 matrix_3x3 = [[1,2,3], [4,5,6], [7,8,9]]
+matrix_3_2 = [[1,2,3], [4,5,6], [7,8,10]]
 
 
 def add(a,b,c): return a+b+c
@@ -175,6 +176,13 @@ class UnitTest(unittest.TestCase):
     def test_linearAlgebra_determinant(self):
         self.assertEqual(L.determinant(matrix_2x2), -2)
         self.assertEqual(L.determinant(matrix_3x3), 0)
+
+    def test_linearAlgebra_mat_transpose(self):
+        self.assertEqual(L.mat_transpose(matrix_2x2), [[1,3],[2,4]])
+        self.assertEqual(L.mat_transpose(matrix_3x3), [[1,4,7],[2,5,8],[3,6,9]])
+
+    def test_linearAlgebra_mat_inverse(self):
+        self.assertEqual(L.mat_inverse(matrix_3_2), [[-0.6666666666666666, -1.3333333333333333, 1.0], [-0.6666666666666666, 3.6666666666666665, -2.0], [1.0, -2.0, 1.0]])
 
 if __name__ == "__main__":
     unittest.main()

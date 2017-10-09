@@ -85,20 +85,62 @@ def determinant(A, x = -1):
     if len_A == 1:
         return A[0][0]
 
-    result = 0
-
     if x == -1:
+        result = 0
         sign = -1
         for i in range(len_A):
             sign *= -1
             result += determinant(A, i) * sign
+        return result
     else:
-        sub_A = []
-        for i in range(1, len_A):
-            row = [value for i, value in enumerate(A[i]) if i != x]
-            sub_A.append(row)
-        result = A[0][x] * determinant(sub_A)
-    return result
+        return A[0][x] * determinant(adj_sub_matrix(A, x))
+
+
+def adj_sub_matrix(A, x, y = 0):
+    shape_A = shape(A)
+    len_A = shape_A[0]
+
+    if len_A != shape_A[1]:
+        error_message = "Matrix A must be square matrix : {}".format(shape_A)
+        #raise ValueError(error_message)
+        return None
+
+    return [[value for i, value in enumerate(row) if i != x] for j, row in enumerate(A) if j != y]
+
+
+def mat_transpose(A):
+    shape_A = shape(A)
+
+    t_A = []
+    for i in range(shape_A[1]):
+        row = []
+        for j in range(shape_A[0]):
+            row.append(A[j][i])
+        t_A.append(row)
+    return t_A
+
+
+def mat_inverse(A):
+    shape_A = shape(A)
+    len_A = shape_A[0]
+
+    if len_A != shape_A[1]:
+        error_message = "Matrix A must be square matrix : {}".format(shape_A)
+        #raise ValueError(error_message)
+        return None
+
+    det_A = determinant(A)
+    adj_A = [[determinant(adj_sub_matrix(A, j, i)) for j in range(len_A)] for i in range(len_A)]
+    t_adj_A = mat_transpose(adj_A)
+
+    sign = -1 / det_A
+    for i in range(len_A):
+        for j in range(len_A):
+            sign *= -1
+            t_adj_A[i][j] *= sign
+
+    return t_adj_A
+
 
 
 if __name__ == '__main__':
