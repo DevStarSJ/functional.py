@@ -12,7 +12,8 @@ _str = "seokjoon.yun"
 _dict = { "id": 1, "name": "seokjoon.yun" }
 _dict_values = [1, "seokjoon.yun"]
 _dict_keys = ["id", "name"]
-_matrix = [[1,2],[3,4]]
+matrix_2x2 = [[1, 2], [3, 4]]
+matrix_3x3 = [[1,2,3], [4,5,6], [7,8,9]]
 
 
 def add(a,b,c): return a+b+c
@@ -122,7 +123,7 @@ class UnitTest(unittest.TestCase):
 
     def test_linearAlgebra_shape(self):
         self.assertEqual(L.shape(_list), [4])
-        self.assertEqual(L.shape(_matrix), [2, 2])
+        self.assertEqual(L.shape(matrix_2x2), [2, 2])
 
     def test_functional_all(self):
         self.assertEqual(F.all(_list, lambda x: x < 5), True)
@@ -150,17 +151,15 @@ class UnitTest(unittest.TestCase):
 
     def test_linearAlgebra_mat_add(self):
         A = [1, 2, 3]
-        B = [[1,2],[3,4]]
-        self.assertEqual(L.mat_add(A,B), None)
+        self.assertEqual(L.mat_add(A, matrix_2x2), None)
         C = [3, 2, 1]
         self.assertEqual(L.mat_add(A,C),[4,4,4])
-        self.assertEqual(L.mat_add(B,B),[[2,4],[6,8]])
+        self.assertEqual(L.mat_add(matrix_2x2, matrix_2x2), [[2, 4], [6, 8]])
 
     def test_linearAlgebra_sca_mul(self):
         A = [1, 2, 3]
-        B = [[1,2],[3,4]]
         self.assertEqual(L.sca_mul(2, A), [2,4,6])
-        self.assertEqual(L.sca_mul(3, B),[[3,6],[9,12]])
+        self.assertEqual(L.sca_mul(3, matrix_2x2), [[3, 6], [9, 12]])
 
     def test_linearAlgebra_linear_combination(self):
         self.assertEqual(L.linear_combination([1,2,3],[[1,0,0],[0,1,0],[0,0,1]]), [1,2,3])
@@ -168,6 +167,14 @@ class UnitTest(unittest.TestCase):
     def test_linearAlgebra_is_linear_independent(self):
         self.assertEqual(L.is_linear_independent([[1,0,0],[0,1,0],[2,1,0]]), False)
         self.assertEqual(L.is_linear_independent([[1,0,0],[0,1,0],[2,1,3]]), True)
+
+    def test_linearAlgebra_mat_mul(self):
+        self.assertEqual(L.mat_mul(matrix_2x2, matrix_2x2), [[7,10], [15,22]])
+        self.assertEqual(L.mat_mul(matrix_3x3, matrix_3x3), [[30, 36, 42], [66, 81, 96], [102, 126, 150]])
+
+    def test_linearAlgebra_determinant(self):
+        self.assertEqual(L.determinant(matrix_2x2), -2)
+        self.assertEqual(L.determinant(matrix_3x3), 0)
 
 if __name__ == "__main__":
     unittest.main()

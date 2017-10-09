@@ -18,8 +18,12 @@ def shape(matrix):
         acc_matrix = acc_matrix[0]
 
 def mat_mul(X, Y):
-    # 일단 2D 만 가능하도록 구현되어 있음
-    # 차원 검사 로직은 추후 적용할 예정
+    shape_X, shape_Y = shape(X), shape(Y)
+
+    if shape_X[1] != shape_Y[0]:
+        error_message = "Shape of X [1] and B [0] must be same. X: {}, Y: {}".format(shape_X, shape_Y)
+        #raise ValueError(error_message)
+        return None
 
     return [[sum(a*b for a, b in zip(X_row,Y_col)) for Y_col in zip(*Y)] for X_row in X]
 
@@ -68,6 +72,33 @@ def is_linear_independent(basis):
     V = F.reduce(basis, lambda a,b: mat_add(a,b), [0 for _ in range(0,shape_basis[0])])
 
     return len(linear_combination(V,basis)) > 0
+
+def determinant(A, x = -1):
+    shape_A = shape(A)
+    len_A = shape_A[0]
+
+    if len_A != shape_A[1]:
+        error_message = "Matrix A must be square matrix : {}".format(shape_A)
+        #raise ValueError(error_message)
+        return None
+
+    if len_A == 1:
+        return A[0][0]
+
+    result = 0
+
+    if x == -1:
+        sign = -1
+        for i in range(len_A):
+            sign *= -1
+            result += determinant(A, i) * sign
+    else:
+        sub_A = []
+        for i in range(1, len_A):
+            row = [value for i, value in enumerate(A[i]) if i != x]
+            sub_A.append(row)
+        result = A[0][x] * determinant(sub_A)
+    return result
 
 
 if __name__ == '__main__':
