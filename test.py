@@ -15,6 +15,7 @@ _dict_keys = ["id", "name"]
 matrix_2x2 = [[1, 2], [3, 4]]
 matrix_3x3 = [[1,2,3], [4,5,6], [7,8,9]]
 matrix_3_2 = [[1,2,3], [4,5,6], [7,8,10]]
+A = [1, 2, 3]
 
 
 def add(a,b,c): return a+b+c
@@ -151,14 +152,12 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(M.collatz_conjecture(13), 9)
 
     def test_linearAlgebra_mat_add(self):
-        A = [1, 2, 3]
         self.assertRaises(ValueError,L.mat_add, A, matrix_2x2)
         C = [3, 2, 1]
         self.assertEqual(L.mat_add(A,C),[4,4,4])
         self.assertEqual(L.mat_add(matrix_2x2, matrix_2x2), [[2, 4], [6, 8]])
 
     def test_linearAlgebra_sca_mul(self):
-        A = [1, 2, 3]
         self.assertEqual(L.sca_mul(2, A), [2,4,6])
         self.assertEqual(L.sca_mul(3, matrix_2x2), [[3, 6], [9, 12]])
 
@@ -183,6 +182,15 @@ class UnitTest(unittest.TestCase):
 
     def test_linearAlgebra_mat_inverse(self):
         self.assertEqual(L.mat_inverse(matrix_3_2), [[-0.6666666666666666, -1.3333333333333333, 1.0], [-0.6666666666666666, 3.6666666666666665, -2.0], [1.0, -2.0, 1.0]])
+
+    def test_linearAlgebra_dot_product(self):
+        self.assertEqual(L.dot_product(_list, _list), sum([x*x for x in range(1,5)]))
+
+    def test_linearAlgebra_cross_product(self):
+        self.assertRaises(ValueError,L.cross_product, A, _list)
+        self.assertRaises(NotImplementedError, L.cross_product, _list, _list)
+        self.assertEqual(L.cross_product([3, 1], [2, -1]), -5)
+        self.assertEqual(L.cross_product([0, 0, 2], [0, 2, 0]), [-4, 0, 0])
 
 if __name__ == "__main__":
     unittest.main()

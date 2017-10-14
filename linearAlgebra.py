@@ -138,6 +138,32 @@ def mat_inverse(A):
 
     return t_adj_A
 
+def validate_same_length_two_vector(A, B):
+    shapes = [shape(A), shape(B)]
+
+    if F.any(shapes, lambda s: len(s) > 1) or shapes[0][0] != shapes[1][0]:
+        error_message = "A and B must be vector and same length : {}".format(shapes)
+        raise ValueError(error_message)
+
+    return shapes[0][0]
+
+def dot_product(A, B):
+    validate_same_length_two_vector(A, B)
+
+    return sum([a * b for a, b in zip(A, B)])
+
+
+def cross_product(A, B):
+    # 일반식이 복잡함. 2,3차만 따로 구현
+    shapes = validate_same_length_two_vector(A, B)
+
+    if shapes == 2:
+        return determinant([[a, b] for a, b in zip(A, B)])
+    elif shapes == 3:
+        M = [[0, a, b] for a, b in zip(A, B)]
+        return [determinant(adj_sub_matrix(M, 0, y)) for y in range(shapes)]
+    else:
+        raise NotImplementedError("cross_product is enable for 2D and 3D vectors.")
 
 
 if __name__ == '__main__':
