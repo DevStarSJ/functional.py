@@ -152,7 +152,7 @@ class UnitTest(unittest.TestCase):
 
     def test_linearAlgebra_mat_add(self):
         A = [1, 2, 3]
-        self.assertEqual(L.mat_add(A, matrix_2x2), None)
+        self.assertRaises(ValueError,L.mat_add, A, matrix_2x2)
         C = [3, 2, 1]
         self.assertEqual(L.mat_add(A,C),[4,4,4])
         self.assertEqual(L.mat_add(matrix_2x2, matrix_2x2), [[2, 4], [6, 8]])
